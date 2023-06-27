@@ -43,7 +43,7 @@
     DB_NAME=db_loja
     DB_ADMIN_EMAIL=admin@root.com
     ```
-    - Para a criação do servidor no pgAdmin (`http://localhost:8081/`), informar:
+    - Para a criação do server no pgAdmin (`http://localhost:8081/`), informar:
 
     ```
     Name: postgres
@@ -53,6 +53,10 @@
     Username: root
     Password: root
     ```
+    - Uma vez criado o server no pgAdmin criar o banco de dados:
+  1. Clicar com botão direito em Databases; Criar database com o nome `db_loja` (de acordo com arquivo .env citado acima);
+  2. Sobre o database `db_loja` criado, clicar com botão direito e em Query Tool;
+  3. Utilizar o aquivo `script-database.slq` contido na pasta `apoio`, na raiz do projeto; Executar o arquivo;
 
 ## Installation
 
