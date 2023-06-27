@@ -38,8 +38,4 @@ export class AtualizaProdutoDTO {
   @IsNotEmpty()
   @IsOptional()
   categoria: string;
-
-  @IsNotEmpty()
-  @IsOptional()
-  usuarioId: string;
 }

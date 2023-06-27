@@ -4,7 +4,7 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from "@nestjs/typeorm";
 
 @Injectable()
 export class PostgresConfigService implements TypeOrmOptionsFactory {
-  
+
   constructor(private configService: ConfigService) {}
 
   // buscando dados do arquivo .env através do objeto ConfigService
@@ -19,7 +19,6 @@ export class PostgresConfigService implements TypeOrmOptionsFactory {
       entities: [
         __dirname + '/../**/*.entity{.ts,.js}'
       ],
-      synchronize: true
     }
   }
 }

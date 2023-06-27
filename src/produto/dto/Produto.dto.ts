@@ -31,7 +31,4 @@ export class ProdutoDTO {
 
   @IsNotEmpty()
   categoria: string;
-
-  @IsNotEmpty()
-  usuarioId: string;
 }
