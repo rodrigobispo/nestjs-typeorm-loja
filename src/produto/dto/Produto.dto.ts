@@ -13,7 +13,7 @@ export class ProdutoDTO {
 
   @IsNumber()
   @IsPositive()
-  quantidade: number;
+  quantidadeDisponivel: number;
 
   @IsNotEmpty()
   @MaxLength(100)

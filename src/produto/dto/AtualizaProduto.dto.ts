@@ -16,7 +16,7 @@ export class AtualizaProdutoDTO {
   @IsNumber()
   @IsPositive()
   @IsOptional()
-  quantidade: number;
+  quantidadeDisponivel: number;
 
   @IsNotEmpty()
   @MaxLength(100)

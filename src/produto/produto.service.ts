@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ProdutoEntity } from "src/entity/Produto.entity";
 import { Repository } from "typeorm";
 import { AtualizaProdutoDTO } from "./dto/AtualizaProduto.dto";
+import { ProdutoDTO } from "./dto/Produto.dto";
 
 @Injectable()
 export class ProdutoService {
@@ -12,8 +13,19 @@ export class ProdutoService {
     private readonly produtoRepository: Repository<ProdutoEntity>
   ) {}
 
-  async criaProduto(produto: ProdutoEntity) {
-    return await this.produtoRepository.save(produto);
+  async criaProduto(dadosDoProduto: ProdutoDTO) {
+    const produtoEntity = new ProdutoEntity();
+
+    produtoEntity.nome = dadosDoProduto.nome;
+    produtoEntity.usuarioId = dadosDoProduto.usuarioId;
+    produtoEntity.valor = dadosDoProduto.valor;
+    produtoEntity.quantidadeDisponivel = dadosDoProduto.quantidadeDisponivel;
+    produtoEntity.descricao = dadosDoProduto.descricao;
+    produtoEntity.categoria = dadosDoProduto.categoria;
+    produtoEntity.caracteristicas = dadosDoProduto.caracteristicas;
+    produtoEntity.imagens = dadosDoProduto.imagens;
+
+    return await this.produtoRepository.save(produtoEntity);
   }
 
   async atualizaProduto(id: string, produto: AtualizaProdutoDTO) {

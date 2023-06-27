@@ -1,11 +1,11 @@
 
 import {
-  Column, 
-  CreateDateColumn, 
-  DeleteDateColumn, 
-  Entity, 
-  OneToMany, 
-  PrimaryGeneratedColumn, 
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
   UpdateDateColumn } from "typeorm";
 import { ProdutoCaracteristicaEntity } from "./ProdutoCaracteristica.entity";
 import { ProdutoImagemEntity } from "./ProdutoImagem.entity";
@@ -25,8 +25,8 @@ export class ProdutoEntity {
   @Column({ name: 'valor', nullable: false })
   valor: number;
 
-  @Column({ name: 'quantidade', nullable: false })
-  quantidade: number;
+  @Column({ name: 'quantidade_disponivel', nullable: false })
+  quantidadeDisponivel: number;
 
   @Column({ name: 'descricao', length: 255, nullable: false })
   descricao: string;

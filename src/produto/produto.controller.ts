@@ -1,9 +1,9 @@
-import { Body, 
-  Controller, 
-  Delete, 
-  Get, 
-  Param, 
-  Post, 
+import { Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
   Put } from "@nestjs/common";
 import { ProdutoDTO } from "./dto/Produto.dto";
 import { ProdutoEntity } from "src/entity/Produto.entity";
@@ -20,20 +20,12 @@ export class ProdutoController {
 
   @Post()
   public async criaProduto(@Body() dadosDoProduto: ProdutoDTO) {
+    const produtoCadastrado = await this.produtoService.criaProduto(dadosDoProduto);
 
-    const produto = new ProdutoEntity();
-
-    produto.id = randomUUID();
-    produto.nome = dadosDoProduto.nome;
-    produto.usuarioId = dadosDoProduto.usuarioId;
-    produto.valor = dadosDoProduto.valor;
-    produto.quantidade = dadosDoProduto.quantidade;
-    produto.descricao = dadosDoProduto.descricao;
-    produto.categoria = dadosDoProduto.categoria;
-    produto.caracteristicas = dadosDoProduto.caracteristicas;
-    produto.imagens = dadosDoProduto.imagens;
-
-    return this.produtoService.criaProduto(produto);
+    return {
+      mensagem: 'Produto cadastrado com sucesso.',
+      produto: produtoCadastrado,
+    }
   }
 
   @Get()
