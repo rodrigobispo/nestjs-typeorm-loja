@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePedidoDto } from './dto/create-pedido.dto';
-import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PedidoEntity } from 'src/entity/pedido.entity';
 import { UsuarioEntity } from 'src/entity/Usuario.entity';
@@ -29,6 +27,17 @@ export class PedidoService {
     const pedidoCriado = await this.pedidoRepository.save(pedidoEntity);
 
     return pedidoCriado;
+  }
+
+  async obtemPedidosDeUsuario(usuarioId: string) {
+    return this.pedidoRepository.find({
+      where: {
+        usuario: { id: usuarioId },
+      },
+      relations: {
+        usuario: true,
+      },
+    });
   }
 
 }
