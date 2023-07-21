@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn } from "typeorm"
 import { UsuarioEntity } from "./Usuario.entity";
+import { ItemPedidoEntity } from "./item-pedido.entity";
 
 @Entity({ name: 'pedidos' })
 export class PedidoEntity {
@@ -32,4 +33,9 @@ export class PedidoEntity {
 
   @ManyToOne(() => UsuarioEntity, (usuario) => usuario.pedidos)
   usuario: UsuarioEntity;
+
+  @ManyToOne(() => ItemPedidoEntity, (itemPedido) => itemPedido.pedido, {
+    cascade: true
+  })
+  itensPedido: ItemPedidoEntity[];
 }
