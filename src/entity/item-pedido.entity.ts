@@ -18,8 +18,8 @@ export class ItemPedidoEntity {
   precoVenda: number;
 
   @ManyToOne(() => PedidoEntity, (pedido) => pedido.itensPedido, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   })
   pedido: PedidoEntity;
 }
