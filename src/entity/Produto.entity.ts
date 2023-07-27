@@ -9,6 +9,7 @@ import {
   UpdateDateColumn } from "typeorm";
 import { ProdutoCaracteristicaEntity } from "./ProdutoCaracteristica.entity";
 import { ProdutoImagemEntity } from "./ProdutoImagem.entity";
+import { ItemPedidoEntity } from "./item-pedido.entity";
 
 @Entity({ name: 'produtos'})
 export class ProdutoEntity {
@@ -54,6 +55,6 @@ export class ProdutoEntity {
   )
   imagens: ProdutoImagemEntity[];
 
+  @OneToMany(() => ItemPedidoEntity, (itemPedido) => itemPedido.produto)
+  itensPedido: ItemPedidoEntity[];
 }
-
-
