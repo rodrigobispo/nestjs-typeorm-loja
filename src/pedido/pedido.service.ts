@@ -8,6 +8,7 @@ import { ItemPedidoEntity } from '../entity/item-pedido.entity';
 import { StatusPedido } from './enum/status-pedido.enum';
 import { CriaPedidoDTO } from './dto/CriaPedido.dto';
 import { ProdutoEntity } from '../entity/Produto.entity';
+import { AtualizaPedidoDTO } from './dto/AtualizaPedido.dto';
 
 @Injectable()
 export class PedidoService {
@@ -85,7 +86,6 @@ export class PedidoService {
     });
   }
 
-
   async obtemPedidosDeUsuario(usuarioId: string) {
     return this.pedidoRepository.find({
       where: {
@@ -95,6 +95,18 @@ export class PedidoService {
         usuario: true,
       },
     });
+  }
+
+  async atualizaPedido(id: string, dto: AtualizaPedidoDTO) {
+    const pedido = await this.pedidoRepository.findOneBy({ id });
+
+    if (pedido === null) {
+      throw new NotFoundException('O pedido não foi encontrado.');
+    }
+
+    Object.assign(pedido, dto);
+
+    return this.pedidoRepository.save(pedido);
   }
 
 }
