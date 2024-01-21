@@ -20,12 +20,12 @@ export class ProdutoDTO {
   descricao: string;
 
   @IsArray()
-  // @ValidateNested()
+  @ValidateNested()
   @Type(() => ProdutoCaracteristicaEntity)
   caracteristicas: ProdutoCaracteristicaEntity[];
 
   @IsArray()
-  // @ValidateNested()
+  @ValidateNested()
   @Type(() => ProdutoImagemEntity)
   imagens: ProdutoImagemEntity[];
 
