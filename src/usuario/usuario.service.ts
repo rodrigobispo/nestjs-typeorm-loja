@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { UsuarioEntity } from "src/entity/Usuario.entity";
 import { Repository } from "typeorm";
@@ -28,8 +28,19 @@ export class UsuarioService {
     await this.usuarioRepository.update(id, usuario);
   }
 
+  // async atualizaUsuario(id: string, novosDados: AtualizaUsuarioDTO) {
+  //   const usuario = await this.usuarioRepository.findOneBy({ id });
+
+  //    Object.assign(usuario, novosDados);
+
+  //    return this.usuarioRepository.save(usuario);
+  // }
+
   async excluiUsuario(id: string) {
-    await this.usuarioRepository.delete(id);
+    const resultado = await this.usuarioRepository.delete(id);
+
+    if (!resultado.affected)
+      throw new NotFoundException('O usuário não foi encontrado.');
   }
 
   async listaUsuarios() {
@@ -43,4 +54,16 @@ export class UsuarioService {
     );
     return listaDeUsuarios;
   }
+
+  async buscaPorEmail(email: string) {
+    const checkEmail = await this.usuarioRepository.findOne({
+      where: { email },
+    });
+
+    if (checkEmail === null)
+      throw new NotFoundException('O email não foi encontrado.');
+
+    return checkEmail;
+  }
+
 }
