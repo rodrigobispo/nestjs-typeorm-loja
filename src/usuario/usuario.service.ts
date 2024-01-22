@@ -24,17 +24,14 @@ export class UsuarioService {
     return await this.usuarioRepository.save(usuario);
   }
 
-  async atualizaUsuario(id: string, usuario: AtualizaUsuarioDTO) {
-    await this.usuarioRepository.update(id, usuario);
+  async atualizaUsuario(id: string, novosDados: AtualizaUsuarioDTO) {
+    // await this.usuarioRepository.update(id, novosDados);
+    const usuario = await this.usuarioRepository.findOneBy({ id });
+
+    Object.assign(usuario as UsuarioEntity, novosDados);
+
+    return this.usuarioRepository.save(<UsuarioEntity>usuario);
   }
-
-  // async atualizaUsuario(id: string, novosDados: AtualizaUsuarioDTO) {
-  //   const usuario = await this.usuarioRepository.findOneBy({ id });
-
-  //    Object.assign(usuario, novosDados);
-
-  //    return this.usuarioRepository.save(usuario);
-  // }
 
   async excluiUsuario(id: string) {
     const resultado = await this.usuarioRepository.delete(id);
