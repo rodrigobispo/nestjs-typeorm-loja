@@ -17,9 +17,10 @@ export class UsuarioService {
   async criaUsuario(dadosDoUsuario: UsuarioDTO): Promise<UsuarioEntity> {
     const usuario = new UsuarioEntity();
 
-    usuario.nome = dadosDoUsuario.nome;
-    usuario.email = dadosDoUsuario.email;
-    usuario.senha = dadosDoUsuario.senha;
+    // usuario.nome = dadosDoUsuario.nome;
+    // usuario.email = dadosDoUsuario.email;
+    // usuario.senha = dadosDoUsuario.senha;
+    Object.assign(usuario, dadosDoUsuario as UsuarioEntity); //atribuições automáticas substituindo código acima.
 
     return await this.usuarioRepository.save(usuario);
   }
@@ -28,9 +29,12 @@ export class UsuarioService {
     // await this.usuarioRepository.update(id, novosDados);
     const usuario = await this.usuarioRepository.findOneBy({ id });
 
-    Object.assign(usuario as UsuarioEntity, novosDados);
+    if (usuario === null)
+      throw new NotFoundException('O usuário não foi encontrado.');
 
-    return this.usuarioRepository.save(<UsuarioEntity>usuario);
+    Object.assign(usuario, novosDados as UsuarioEntity);
+
+    return this.usuarioRepository.save(usuario);
   }
 
   async excluiUsuario(id: string) {
