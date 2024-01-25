@@ -1,4 +1,4 @@
-import { StatusPedido } from "../pedido/enum/status-pedido.enum";
+import { StatusPedido } from "../modulos/pedido/enum/status-pedido.enum";
 import {
   Column,
   CreateDateColumn,
