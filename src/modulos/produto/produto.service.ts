@@ -52,4 +52,12 @@ export class ProdutoService {
     return produtosGravados;
   }
 
+  async listaUm(id: string) {
+    const produto = await this.produtoRepository.findOneBy({ id });
+
+    if (produto === null)
+      throw new NotFoundException('O produto não foi encontrado.');
+
+    return produto;
+  }
 }

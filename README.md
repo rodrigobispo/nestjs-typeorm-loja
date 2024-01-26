@@ -63,6 +63,10 @@
 ```bash
 $ npm install
 ```
+Instalação de recurso de cache nativo do Nest:
+```
+npm install @nestjs/cache-manager@2.0.1 -E cache-manager@5.2.3 -E
+```
 
 ## Running the app
 
