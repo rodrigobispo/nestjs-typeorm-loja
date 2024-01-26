@@ -103,7 +103,6 @@ export class PedidoService {
     const pedido = await this.pedidoRepository.findOneBy({ id });
 
     // throw new NotFoundException('Simulando erro do banco de dados...');
-
     if (pedido === null) {
       throw new NotFoundException('O pedido não foi encontrado.');
     }
