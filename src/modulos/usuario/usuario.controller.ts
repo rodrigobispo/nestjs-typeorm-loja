@@ -24,8 +24,6 @@ export class UsuarioController {
       senha: senhaHash
     });
 
-    console.log(usuarioCadastrado);
-
     return {
       usuario: new ListaUsuarioDTO(
         usuarioCadastrado.nome,

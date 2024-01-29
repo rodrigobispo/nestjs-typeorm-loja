@@ -9,7 +9,8 @@ import { UsuarioService } from "./usuario.service";
 @Module({
   imports: [TypeOrmModule.forFeature([UsuarioEntity])],
   controllers: [UsuarioController],
-  providers: [UsuarioRepository, EmailEhUnicoValidator, UsuarioService]
+  providers: [UsuarioRepository, EmailEhUnicoValidator, UsuarioService],
+  exports: [UsuarioService]
 })
 
 export class UsuarioModule {}
