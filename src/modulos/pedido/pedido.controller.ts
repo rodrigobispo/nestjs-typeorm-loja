@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { CriaPedidoDTO } from './dto/CriaPedido.dto';
 import { AtualizaPedidoDTO } from './dto/AtualizaPedido.dto';
+import { AutenticacaoGuard } from '../autenticacao/autenticacao.guard';
 
+@UseGuards(AutenticacaoGuard)
 @Controller('/pedidos')
 export class PedidoController {
   constructor(private readonly pedidoService: PedidoService) {}
@@ -13,7 +15,10 @@ export class PedidoController {
     @Body() dadosDoPedido: CriaPedidoDTO
   ) {
     const pedidoCriado = await this.pedidoService.cadastraPedido(usuarioId, dadosDoPedido);
-    return pedidoCriado;
+    return {
+      mensagem: 'Pedido feito com sucesso.',
+      pedido: pedidoCriado,
+    };
   }
 
   @Get()
