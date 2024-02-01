@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, Req } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { CriaPedidoDTO } from './dto/CriaPedido.dto';
 import { AtualizaPedidoDTO } from './dto/AtualizaPedido.dto';
-import { AutenticacaoGuard } from '../autenticacao/autenticacao.guard';
+import { AutenticacaoGuard, RequisicaoComUsuario } from '../autenticacao/autenticacao.guard';
 
 @UseGuards(AutenticacaoGuard)
 @Controller('/pedidos')
@@ -11,9 +11,10 @@ export class PedidoController {
 
   @Post()
   async criaPedido(
-    @Query('usuarioId') usuarioId: string,
+    @Req() req: RequisicaoComUsuario,
     @Body() dadosDoPedido: CriaPedidoDTO
   ) {
+    const usuarioId = req.usuario.subject;
     const pedidoCriado = await this.pedidoService.cadastraPedido(usuarioId, dadosDoPedido);
     return {
       mensagem: 'Pedido feito com sucesso.',
@@ -22,7 +23,8 @@ export class PedidoController {
   }
 
   @Get()
-  async obtemPedidosDeUsuario(@Query('usuarioId') usuarioId: string) {
+  async obtemPedidosDeUsuario(@Req() req: RequisicaoComUsuario) {
+    const usuarioId = req.usuario.subject;
     const pedidos = await this.pedidoService.obtemPedidosDeUsuario(usuarioId);
 
     return pedidos;
@@ -30,10 +32,12 @@ export class PedidoController {
 
   @Patch(':id')
   async atualizaPedido(
+    @Req() req: RequisicaoComUsuario,
     @Param('id') pedidoId: string,
     @Body() dadosDeAtualizacao: AtualizaPedidoDTO
   ) {
-    const pedidoAtualizado = await this.pedidoService.atualizaPedido(pedidoId, dadosDeAtualizacao);
+    const usuarioId = req.usuario.subject;
+    const pedidoAtualizado = await this.pedidoService.atualizaPedido(pedidoId, dadosDeAtualizacao, usuarioId);
     return pedidoAtualizado;
   }
 }
