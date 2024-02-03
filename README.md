@@ -67,6 +67,10 @@ Instalação de recurso de cache nativo do Nest:
 ```
 npm install @nestjs/cache-manager@2.0.1 -E cache-manager@5.2.3 -E
 ```
+Instalação de recurso para log global, permitindo informar no console dados da aplicação que não sejam necessariamente erros.
+```
+nest g itc recursos/interceptores/logger-global --no-spec
+```
 
 ## Running the app
 
